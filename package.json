@@ -11,6 +11,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.0"
   },
+  "resolutions": {
+    "@babel/preset-env": "7.5.5"
+  },
   "scripts": {
     "start": "run-p start:**",
     "start:app": "react-scripts start",
