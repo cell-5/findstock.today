@@ -1,2 +1,8 @@
 # findstock.today
-Help me find local stuff
+
+Help me find local stock.
+
+```bash
+npm install
+npm start
+```
