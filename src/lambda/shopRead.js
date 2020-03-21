@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
       }
     }
     const response = {
-      msg: "Shop successfully updated",
+      msg: "Shop read",
       data: shopFormatter.toUIWithoutProducts(oldShopDataFound)
     }
     return {
@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(response)
     }
   } catch(err) {
-    console.log('shop.update', err) // output to netlify function log
+    console.log('shop.read', err) // output to netlify function log
     return {
       statusCode: 500,
       body: JSON.stringify({msg: err.message})
