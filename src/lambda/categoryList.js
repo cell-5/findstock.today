@@ -14,7 +14,7 @@ return {
       ]})
     }
   } catch (err) {
-    console.log('get.categories', err) // output to netlify function log
+    console.log('category.list', err) // output to netlify function log
     return {
       statusCode: 500,
       body: JSON.stringify({msg: err.message})
