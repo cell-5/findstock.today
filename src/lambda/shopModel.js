@@ -21,7 +21,7 @@ const schema = new mongoose.Schema({
         postcode: {
           type: String,
         },
-        geo: {type: [Number], index: '2d'},
+        geo: {type: [Number], index: '2dsphere'},
         active: {type: [Boolean], default: true},
         openingHours: {
           type: Map,
