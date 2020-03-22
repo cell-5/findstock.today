@@ -35,7 +35,7 @@ exports.handler = async (event, context) => {
     }),
     response = {
             msg: "Shops successfully found",
-            data: shops.map(shopFormatter.toUIWithoutProducts)
+            data: shops.map(shopFormatter.toUI)
     }
     
     return {
