@@ -50,6 +50,10 @@ export default function SearchPage() {
     }
   }, [coordinates, range]);
 
+  useEffect(() => {
+    // TODO Handle matching here
+  }, [selectedProducts, shops]);
+
   return (
     <div>
       <CurrentLocation onChange={setCoordinates} />
