@@ -19,8 +19,9 @@ export default class App extends Component {
             <Route path="/shop">
               <ShopPage/>
             </Route>
-            <Route path="/stock">
-              <StockPage/>
+            {/* TODO Change to slug */}
+            <Route path="/stock/:shopId"> 
+              <StockPage />
             </Route>
             <Route path="/">
               <SearchPage />

@@ -29,7 +29,8 @@ function toMongo(from){
     active: from.active,
     postcode: from.postcode,
     openingHours: from.openingHours,
-    products: [],
+    products: from.products,
+    slug: from.slug,
     tags: [
       ...from.categories.map(tagFromCategory), 
       ...from.links.map(tagFromLink)],
@@ -48,6 +49,8 @@ function fromMongoToUI(mongoShopResponse){
     active: mongoShopResponse.active,
     postcode: mongoShopResponse.postcode,
     openingHours: mongoShopResponse.openingHours,
+    slug: mongoShopResponse.slug,
+    products: mongoShopResponse.products,
     categories: propOr([],'category', typedTags),
     links: propOr([],'link', typedTags),
   }
