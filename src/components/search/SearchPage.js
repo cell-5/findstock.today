@@ -2,17 +2,35 @@ import React, {useState} from 'react';
 import { Link }  from 'react-router-dom';
 import CurrentLocation from './CurrentLocation';
 import {  Form, Input, Radio, List, Typography  } from 'antd';
+import { set } from 'mongoose';
+
 
 
 export default function SearchPage(){
     const [form] = Form.useForm();
     const [formRange, setFormRange] = useState('1m');
     const [formCoords, setFormCoords] = useState({});
+    const [shops, setShops] = useState([]);
+    const [loading, setLoading] = useState(false);
    
     const onValuesChanged = ({range, coords}) => {
         setFormRange(range)
-        alert(JSON.stringify({range: range, coords: coords? coords: formCoords}));
-    }; 
+        var latestValues = {range: range, coords: coords? coords: formCoords}
+        fetchShops(latestValues)
+    };
+    
+    const fetchShops = ({ coords, range })=>{
+        setLoading(true)
+        fetch(`/.netlify/functions/shopList/?lat=${coords.latitude}&long=${coords.longitude}&radius=${range}`)
+            .then(res => res.json())
+            .then(response => {
+               const  shops = response.data
+               setLoading(false)
+               setShops(shops) 
+
+            })
+            .catch(err => setLoading(false))
+    }
 
     /* this reflect a hack to make the CurrentLocation widget work with the
     Ant forms without too much tomfoolery. Will probably bite us later
@@ -64,14 +82,15 @@ export default function SearchPage(){
         </Form.Item>
         </Form>
         <Link to={`/shop`} activeClassName="active">Not looking for stock, create a shop instead?</Link>
+        {/* use loading property to show spinner */}
         <List
             header={<div>Header</div>}
             footer={<div>Footer</div>}
             bordered
-            dataSource={data}
-            renderItem={item => (
+            dataSource={shops}
+            renderItem={shop => (
             <List.Item>
-                <Typography.Text mark>[ITEM]</Typography.Text> {item}
+                <Typography.Text mark>[ITEM]</Typography.Text> {shop.name}
             </List.Item>
             )}
         />
