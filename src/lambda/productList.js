@@ -9,7 +9,7 @@ return {
         'Soap', 
         'Wet wipes', 
         'Disinfectant',
-        'Paracetomal',
+        'Paracetamol',
         'Lemons',
         'Milk',
         'Bread',

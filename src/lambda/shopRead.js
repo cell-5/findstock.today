@@ -3,11 +3,11 @@ import db from './server' //NEEDED
 import shopFormatter from './shopFormatter'
 
 exports.handler = async (event, context) => {
-  context.callbackWaitsForEmptyEventLoop = false
+  context.callbackWaitsForEmptyEventLoop = false;
   
   try {
     // Parse the ID
-    const {id} = JSON.parse(event.body)
+    const { id } = event.queryStringParameters;
     const oldShopDataFound = await Shop.findOne({_id: id})
     if(oldShopDataFound == null){
       return {

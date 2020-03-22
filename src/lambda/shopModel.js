@@ -27,6 +27,9 @@ const schema = new mongoose.Schema({
           type: Map,
           of: [String],
         },
+        slug: {
+          type: String,
+        },
       }),
       Shop = mongoose.model('shop', schema)
 export default Shop
