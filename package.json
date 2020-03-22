@@ -7,11 +7,13 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.0.3",
+    "google-maps-react": "^2.0.2",
     "mongoose": "^5.9.5",
     "rambda": "^5.0.0",
     "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-places-autocomplete": "^7.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.0.0"
   },
