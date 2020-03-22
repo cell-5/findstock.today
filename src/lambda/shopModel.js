@@ -1,15 +1,5 @@
 import mongoose from 'mongoose'
 
-const product = new mongoose.Schema({
-  label: {
-    type: String,
-  },
-  value: {
-    type: String,
-    enum: ['none', 'few', 'many'],
-  },
-});
-
 const schema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: {
@@ -18,7 +8,9 @@ const schema = new mongoose.Schema({
     max: 100
   },
   products: {
-    type: [product],
+    type: Map,
+    of: String,
+    enum: ['none', 'few', 'many'],
   },
   tags: {
     type: [String]

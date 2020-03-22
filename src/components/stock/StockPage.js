@@ -17,11 +17,12 @@ export default function StockPage(props) {
   }, [shopId]);
 
   useEffect(() => {
-    const { products = [] } = shop || {};
-    const rows = products.map((product, index) => {
-      return { ...product, key: index };
+    const { products = {} } = shop || {};
+    const rows = Object.keys(products).map((key, index) => {
+      return { label: key, value: products[key], key: index };
     });
     setDataSource(rows);
+    setLoading(false);
   }, [shop]);
 
   const fetchShop = ({ shopId }) => {
