@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
+import { Table } from 'antd';
 
 export default function StockPage(props) {
   const { shopId } = useParams();
   const [shop, setShop] = useState();
-  const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [dataSource, setDataSource] = useState([]);
+  const columns = [
+    { title: 'Products', dataIndex: 'label' },
+    { title: 'Stock', dataIndex: 'value' },
+  ];
 
   useEffect(() => {
     fetchShop({ shopId });
   }, [shopId]);
 
   useEffect(() => {
-
+    const { products = [] } = shop || {};
+    const rows = products.map((product, index) => {
+      return { ...product, key: index };
+    });
+    setDataSource(rows);
   }, [shop]);
 
   const fetchShop = ({ shopId }) => {
@@ -21,15 +30,14 @@ export default function StockPage(props) {
       .then(response => response.json())
       .then(({ data }) => {
         setShop(data);
-        console.log(data);
       })
       .catch(err => setLoading(false));
   }
 
   return (
     <div>
-      This is the page to list stock for a specific shop ( passed in URL)
-      Also would be good to have human readable permalink to shop.
+      <h2>{shop ? shop.name : 'Not Found'}</h2>
+      <Table dataSource={dataSource} columns={columns} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ const product = new mongoose.Schema({
   value: {
     type: String,
     enum: ['none', 'few', 'many'],
-  }
+  },
 });
 
 const schema = new mongoose.Schema({
