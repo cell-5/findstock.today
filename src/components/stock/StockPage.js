@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { Table } from 'antd';
+import { Table, Spin } from 'antd';
 
 export default function StockPage(props) {
   const { shopId } = useParams();
@@ -33,6 +33,10 @@ export default function StockPage(props) {
         setShop(data);
       })
       .catch(err => setLoading(false));
+  }
+
+  if (loading) {
+    return <Spin />;
   }
 
   return (

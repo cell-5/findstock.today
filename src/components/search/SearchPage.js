@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link }  from 'react-router-dom';
-import {  Form, Radio, List, Select  } from 'antd';
+import { Radio, List, Select, Popover } from 'antd';
+import sortBy from 'lodash/sortBy';
 import CurrentLocation from './CurrentLocation';
+import { TOILET_PAPER } from '../../data/products';
 
 const rangeOptions = [
   { label: '1/2 Mile', value: '1/2m' },
@@ -10,12 +12,12 @@ const rangeOptions = [
 ];
 
 export default function SearchPage() {
-  const [form] = Form.useForm();
   const [range, setRange] = useState('1m');
   const [coordinates, setCoordinates] = useState({});
   const [shops, setShops] = useState([]);
   const [products, setProducts] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([TOILET_PAPER]);
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
   function fetchShops({ latitude, longitude, range }) {
@@ -23,20 +25,21 @@ export default function SearchPage() {
     fetch(`/.netlify/functions/shopList/?lat=${latitude}&long=${longitude}&radius=${range}`)
       .then(res => res.json())
       .then(({ data = [] }) => {
-        setLoading(false);
         setShops(data);
+        setLoading(false);
       })
       .catch(err => setLoading(false));
   }
 
   function fetchProducts() {
+    setLoading(true);
     fetch(`/.netlify/functions/productList`)
-    .then(res => res.json())
-    .then(({ data, products }) => {
-      alert(data);
-      setProducts(products);
-    })
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(({ products }) => {
+        setProducts(products);
+        setLoading(false);
+      })
+      .catch(err => setLoading(false));
   }
 
   useEffect(() => {
@@ -51,7 +54,20 @@ export default function SearchPage() {
   }, [coordinates, range]);
 
   useEffect(() => {
-    // TODO Handle matching here
+    const shopsWithStats = shops.map(shop => {
+      let match = 0;
+      const { products } = shop || {};
+      if (products) {
+        Object.keys(products).forEach(key => {
+          const availability = products[key];
+          if (selectedProducts.includes(key) && availability !== 'none') {
+            match += 1;
+          }
+        })
+      }
+      return { ...shop, match };
+    });
+    setResults(sortBy(shopsWithStats, ['match']));
   }, [selectedProducts, shops]);
 
   return (
@@ -71,7 +87,7 @@ export default function SearchPage() {
         mode="multiple"
         style={{ width: '100%' }}
         placeholder="select multiple"
-        defaultValue={['Toilet Roll/Paper']}
+        value={selectedProducts}
         onChange={setSelectedProducts}
         optionLabelProp="label"
       >
@@ -89,15 +105,29 @@ export default function SearchPage() {
         Not looking for stock, create a shop instead?
       </Link>
       <List
-        header={<div>Header</div>}
-        footer={<div>Footer</div>}
+        header="Items you selected are available on the following stores"
         bordered
-        dataSource={shops}
-        renderItem={shop => (
-        <List.Item>
-          <Link to={`/stock/${shop.id}`}>{shop.name}</Link>
-        </List.Item>
-        )}
+        dataSource={results}
+        renderItem={shop => {
+          let stats = 'No product match';
+          const { id: shopId, name, products } = shop;
+          if (products) {
+            stats = '';
+            Object.keys(products).forEach(key => {
+              if (selectedProducts.includes(key)) {
+                stats += `${key}: ${products[key]}\t`
+              }
+            });
+          }
+          return (
+            <List.Item>
+              <Link to={`/stock/${shopId}`}>{name}</Link>
+              <Popover title={stats}>
+                Match {shop.match}
+              </Popover>
+            </List.Item>
+          );
+        }}
       />
     </div>
   );
