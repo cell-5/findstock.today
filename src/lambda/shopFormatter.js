@@ -24,7 +24,7 @@ function toMongo(from){
   return {
     _id: from.id,
     name: from.name,
-    geo: from.geo,
+    geo: [from.geo.long, from.geo.lat],
     address: from.address,
     active: from.active,
     postcode: from.postcode,
@@ -44,7 +44,10 @@ function fromMongoToUI(mongoShopResponse){
     id: mongoShopResponse._id,
     version: mongoShopResponse.__v,
     name: mongoShopResponse.name,
-    geo: mongoShopResponse.geo,
+    geo: { 
+      lat: mongoShopResponse.geo[1], 
+      long: mongoShopResponse.geo[0]
+    },
     address: mongoShopResponse.address,
     active: mongoShopResponse.active,
     postcode: mongoShopResponse.postcode,
