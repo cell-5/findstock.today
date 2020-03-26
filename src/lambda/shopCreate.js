@@ -15,14 +15,14 @@ exports.handler = async (event, context) => {
     if(mongoCreatedShop == null){
       return {
         statusCode: 500,
-        body: JSON.stringify({id: shop._id, error: 'Not Saved'})
+        body: JSON.stringify({id: payload.id, error: 'Not Saved'})
       }
     }
     const response = {
       msg: "Shop successfully created",
       data: shopFormatter.toUIWithoutProducts(mongoCreatedShop)
     }
-return {
+    return {
       statusCode: 201,
       body: JSON.stringify(response)
     }

@@ -23,7 +23,7 @@ const typeTagPairs = reduce((acc,kv)=> {
 function toMongo(from){ 
   return {
     _id: from.id,
-    name: from.name,
+    name: from.shopName,
     geo: [from.geo.long, from.geo.lat],
     address: from.address,
     active: from.active,
@@ -32,7 +32,7 @@ function toMongo(from){
     products: from.products,
     slug: from.slug,
     tags: [
-      ...from.categories.map(tagFromCategory), 
+      ...from.categories.category.map(tagFromCategory), 
       ...from.links.map(tagFromLink)],
     __v: from.version
   }}

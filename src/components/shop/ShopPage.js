@@ -37,6 +37,20 @@ export default function ShopForm() {
     //    "Friday": ["0400", "1200"]	
     //     }
     //  }
+
+    // Send data to db via POST
+    values.geo = { long: 1, lat: 2};  // Temp geo
+    values.links = [values.shopLink]; // Push to array
+    fetch(`/.netlify/functions/shopCreate`, {
+      method: 'POST',
+      body: JSON.stringify(values)
+    })
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(err => console.log(err));
+
     console.log('Success:', values);
   };
 
