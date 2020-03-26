@@ -6,9 +6,9 @@ const onClick = (callback) => {
     (error)=>{})
 }
 export default function CurrentLocation({ onChange }){
-    useEffect(() => {
-        onClick(onChange);
-    }, []);
+    // useEffect(() => {
+    //     onClick(onChange);
+    // }, []);
 
     return (
         <div>

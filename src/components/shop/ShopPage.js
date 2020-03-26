@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import AddressSearchInput from './AddressSearchInput'
 import SelectCategories from './SelectCategories'
 import WebsiteLink from './WebSiteInput';
@@ -53,6 +53,8 @@ export default function ShopForm() {
       onFinishFailed={onFinishFailed}
       form={form}
     >
+         <Typography.Title level={2}>Create Shop</Typography.Title>
+ 
       <Form.Item
         label="Shop Name"
         name="shopName"
