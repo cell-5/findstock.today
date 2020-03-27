@@ -21,7 +21,7 @@ export default function ShopForm() {
 
   const onFinish = values => {
 
-    console.log(values)
+    console.log('values', values)
     //   { 
     //     "name":"My Shop",
     //     "categories": [ "Grocery"], 
@@ -41,7 +41,6 @@ export default function ShopForm() {
     // Send data to db via POST
     values.geo = { long: 1, lat: 2};  // Temp geo
     values.links = [values.shopLink]; // Push to array
-    values.categories = [values.categories.category]; // Object to array
     fetch(`/.netlify/functions/shopCreate`, {
       method: 'POST',
       body: JSON.stringify(values)
@@ -84,8 +83,8 @@ export default function ShopForm() {
       >
         <Input />
       </Form.Item>
-      <Form.Item name="categories" label="Select Category" rules={[{ required: true, message: 'Please select your shop category' }]}>
-        <SelectCategories />
+      <Form.Item name="chosenCategories" label="Select Category" rules={[{ required: true, message: 'Please select your shop category' }]}>
+        <SelectCategories/>
       </Form.Item>
       <Form.Item name="postCode" label="Please select your address">
         <AddressSearchInput handleLatLong={setLatLong} />

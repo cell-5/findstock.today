@@ -32,7 +32,7 @@ function toMongo(from){
     products: from.products,
     slug: from.slug,
     tags: [
-      ...from.categories.map(tagFromCategory), 
+      ...from.chosenCategories.map(tagFromCategory), 
       ...from.links.map(tagFromLink)],
     __v: from.version
   }}

@@ -7,22 +7,16 @@ const buildOptions = (categories) => categories.map((c, i) => <Option key={i} va
 
 
 
-const SelectCategories = ({ value = {}, onChange }) => {
+const SelectCategories = ({ onChange }) => {
 
     const [categories, setCategories] = useState([])
-    const [category, setChosenCategory] = useState([]);
+    const [chosenCategories, setChosenCategories] = useState([]);
 
-    const triggerChange = changedValue => {
-        if (onChange) {
-            onChange({
-                category,
-                ...value,
-                ...changedValue,
-            });
-        }
+    const handleChange = (newCategories) => { 
+        console.log(newCategories); 
+        setChosenCategories(newCategories); 
+        onChange(newCategories);
     };
-
-    const handleChange = (newCategory) => { console.log(); setChosenCategory(newCategory); triggerChange({ category: newCategory }) }
 
     useEffect(() => {
         fetch('/.netlify/functions/categoryList')
@@ -35,7 +29,7 @@ const SelectCategories = ({ value = {}, onChange }) => {
 
     return <>
         <Select
-            value={value.category}
+            value={chosenCategories}
             onChange={handleChange}
             mode="multiple"
             style={{ width: '100%' }}
