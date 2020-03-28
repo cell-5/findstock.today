@@ -7,7 +7,7 @@ const buildOptions = (days) => days.map((c, i) => <Option key={i} value={c}>{c}<
 
 const OpeningHours = ({ onChange }) => {
 
-    const [days, setDays] = useState(['Monday','Tuesday','Wednesday', 'Thursday', 'Friday']);
+    const [days, setDays] = useState(['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
     const [chosenDays, setChosenDays] = useState([]);
     const [hoursOpen, setHoursOpen] = useState({});
 
