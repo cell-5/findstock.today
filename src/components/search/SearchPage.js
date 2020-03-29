@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import sortBy from 'lodash/sortBy';
 import SearchFrom from './SearchForm';
 import SearchResults from './SearchResults';
 import { TOILET_PAPER } from '../../data/products';
 
+
+// const layout = {
+//   labelCol: { span: 8 },
+//   // wrapperCol: { span: 16 },
+// };
 
 export default function SearchPage() {
   const [range, setRange] = useState('1m');
@@ -82,6 +87,6 @@ export default function SearchPage() {
         results={results}
         selectedProducts={selectedProducts}
       />
-    </div>
+    </div >
   );
 }
