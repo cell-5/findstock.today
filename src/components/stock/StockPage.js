@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
-import { Table, Spin, Typography} from 'antd';
+import { Link, useParams } from 'react-router-dom';
+import { Table, Spin, Typography } from 'antd';
 
 export default function StockPage(props) {
   const { shopId } = useParams();
@@ -43,6 +43,7 @@ export default function StockPage(props) {
     <div>
       <Typography.Title level={2}>{shop ? `${shop.name}: Inventory` : 'Not Found'}</Typography.Title>
       <Table dataSource={dataSource} columns={columns} />
+      <Link to={`/stock/${shopId}/edit`}>Edit Inventory</Link>
     </div>
   );
 }
