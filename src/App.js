@@ -4,33 +4,33 @@ import SearchPage from './components/search/SearchPage';
 import StockPage from './components/stock/StockPage';
 import EditStock from './components/stock/EditStock';
 import ShopPage from './components/shop/ShopPage';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Loading from "./components/Loading";
-import NavBar from "./components/NavBar";
+import Navbar from './components/navbar/Navbar';
 import Profile from "./views/Profile";
 import { useAuth0 } from "./react-auth0-spa";
-import history from "./utils/history";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import { Layout,Row, Col  } from 'antd';
+const { Content, Footer } = Layout;
 import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
-
-import { Layout, Row, Col } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
-
 const App = () => {
   const { loading } = useAuth0();
   if (loading) {
     return <Loading />;
   }
+  render() {
     return (
-          <BrowserRouter>
+        <BrowserRouter>
         <Layout>
-          <Header>
-            <NavBar></NavBar>
-          </Header>
+          <Navbar/>
           <Content>
           <Row justify="center">
-            <Col xs={22} sm={12} >
+            <Col xs={22} sm={22} md={16} lg={12} >
                 <Switch>
                   <Route path="/shop">
                     <ShopPage />
@@ -47,9 +47,9 @@ const App = () => {
             </Col>
           </Row>
           </Content>
-          <Footer>
-          </Footer>
+          <Footer style={{ textAlign: 'center' }}>findstock.today ©2020 Created by Cell5 & friends</Footer>
         </Layout>
         </BrowserRouter>
     );
-  }
+  };
+}
