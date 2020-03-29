@@ -45,7 +45,6 @@ export default function StockPage(props) {
       <Typography.Title level={2}>{shop ? `${shop.name}: Inventory` : 'Not Found'}</Typography.Title>
       <Table dataSource={dataSource} columns={columns} />
       <Link to={`/stock/${shopId}/edit`}>Edit Inventory</Link>
-      
       <ReportShop shopId={shopId}/>
     </>
   );
