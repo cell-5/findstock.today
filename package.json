@@ -9,6 +9,7 @@
     "antd": "^4.0.3",
     "google-maps-react": "^2.0.2",
     "lodash": "^4.17.15",
+    "mailgun-js": "^0.22.0",
     "mongoose": "^5.9.5",
     "rambda": "^5.0.0",
     "ramda": "^0.27.0",
