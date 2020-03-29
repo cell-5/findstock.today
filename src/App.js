@@ -1,28 +1,37 @@
 import React, { Component } from 'react'
 import './App.css';
-
 import SearchPage from './components/search/SearchPage';
 import StockPage from './components/stock/StockPage';
 import EditStock from './components/stock/EditStock';
 import ShopPage from './components/shop/ShopPage';
+import PrivateRoute from "./components/auth0/PrivateRoute";
+import Loading from "./components/utils/Loading";
 import Navbar from './components/navbar/Navbar';
+import Profile from "./components/auth0/Profile";
+import { useAuth0 } from "./components/auth0/react-auth0-spa";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
 import { Layout,Row, Col  } from 'antd';
+
+import initFontAwesome from "./components/utils/initFontAwesome";
+initFontAwesome();
+
 const { Content, Footer } = Layout;
-export default class App extends Component {
-  render() {
+const App = () => {
+  const authZero = useAuth0();
+  if (authZero && authZero.loading) {
+    return <Loading />;
+  }
     return (
-      <div className="App">
+        <BrowserRouter>
         <Layout>
           <Navbar/>
           <Content>
           <Row justify="center">
             <Col xs={22} sm={22} md={16} lg={12} >
-              <Router>
                 <Switch>
                   <Route path="/shop">
                     <ShopPage />
@@ -31,20 +40,19 @@ export default class App extends Component {
                   <Route exact path="/stock/:shopId">
                     <StockPage />
                   </Route>
-                  <Route exact path="/stock/:shopId/edit">
-                    <EditStock />
-                  </Route>
+                  <PrivateRoute exact path="/stock/:shopId/edit" component={EditStock} />
                   <Route path="/">
                     <SearchPage />
                   </Route>
+                  <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
-              </Router>
             </Col>
           </Row>
           </Content>
           <Footer style={{ textAlign: 'center' }}>findstock.today ©2020 Created by Cell5 & friends</Footer>
         </Layout>
-      </div>
+        </BrowserRouter>
     );
-  }
-}
+  };
+  
+  export default App;
