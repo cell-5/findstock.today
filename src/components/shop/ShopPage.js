@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Typography, Layout,Tooltip } from 'antd';
 import AddressSearchInput from './AddressSearchInput'
 import SelectCategories from './SelectCategories'
 import WebsiteLink from './WebSiteInput';
@@ -11,9 +11,7 @@ const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+;
 
 export default function ShopForm() {
 
@@ -40,7 +38,7 @@ export default function ShopForm() {
     //  }
 
     // Send data to db via POST
-    values.geo = { long: 1, lat: 2};  // Temp geo
+    values.geo = { long: 1, lat: 2 };  // Temp geo
     values.links = [values.shopLink]; // Push to array
     fetch(`/.netlify/functions/shopCreate`, {
       method: 'POST',
@@ -68,26 +66,28 @@ export default function ShopForm() {
       onFinishFailed={onFinishFailed}
       form={form}
     >
-         <Typography.Title level={2}>Create Shop</Typography.Title>
- 
+      <Typography.Title level={2}>Create Shop</Typography.Title>
+        <Form.Item
+          label="Shop Name"
+          name="name"
+          rules={[{ required: true, message: 'Please input your shop name' }]}
+        >
+          <Input />
+
+        </Form.Item>
       <Form.Item
-        label="Shop Name"
-        name="name"
-        rules={[{ required: true, message: 'Please input your shop name!' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Shop Link"
+        label="Shop web link"
         name="shopLink"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: 'Please input your shop link' }]}
       >
-        <Input />
+        <WebsiteLink />
       </Form.Item>
       <Form.Item name="chosenCategories" label="Select Category" rules={[{ required: true, message: 'Please select your shop category' }]}>
-        <SelectCategories/>
+        <SelectCategories />
       </Form.Item>
-      <Form.Item name="postCode" label="Please select your address">
+      <Form.Item name="postCode" label="Please select your shop's address"
+        rules={[{ required: true, message: 'Please input the address of your shop' }]}
+      >
         <AddressSearchInput handleLatLong={setLatLong} />
       </Form.Item>
 
@@ -95,7 +95,7 @@ export default function ShopForm() {
         <OpeningHours />
       </Form.Item>
 
-      <Form.Item {...tailLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

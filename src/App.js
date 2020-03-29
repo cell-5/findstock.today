@@ -9,25 +9,35 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { Layout } from 'antd';
+
+import { Row, Col } from 'antd';
 
 export default class App extends Component {
-    render() {
-      return (
+  render() {
+    return (
       <div className="App">
-        <Router>
-          <Switch>
-            <Route path="/shop">
-              <ShopPage/>
-            </Route>
-            {/* TODO Change to slug */}
-            <Route path="/stock/:shopId"> 
-              <StockPage />
-            </Route>
-            <Route path="/">
-              <SearchPage />
-            </Route>
-          </Switch>
-        </Router>
+        <Layout>
+
+            <Row justify="center">
+              <Col xs={22} sm={12} >   <Router>
+                <Switch>
+
+                  <Route path="/shop">
+                    <ShopPage />
+                  </Route>
+                  {/* TODO Change to slug */}
+                  <Route path="/stock/:shopId">
+                    <StockPage />
+                  </Route>
+                  <Route path="/">
+                    <SearchPage />
+                  </Route>
+                </Switch>
+              </Router>
+              </Col>
+            </Row>
+        </Layout>
       </div>
     );
   }
