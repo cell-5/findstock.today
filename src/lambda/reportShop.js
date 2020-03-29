@@ -1,4 +1,4 @@
-var API_KEY = 'key-cec5cd7889a5d08022208e7febdf6f66';
+var API_KEY = 'KEY'
 var DOMAIN = 'cell5.co.uk';
 var mailgun = require('mailgun-js')({ apiKey: API_KEY, domain: DOMAIN });
 
