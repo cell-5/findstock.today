@@ -35,15 +35,16 @@ export default function SearchForm(props) {
           <div
             className="googleAutocomplete"
             style={{"display": "flex", "flex-direction": "row"}}
-          ></div>
-          <AutoComplete 
-            onPlaceSelected={e => setCoordinates({
-              latitude: e.geometry.location.lat(),
-              longitude: e.geometry.location.lng(),
-            })} 
-            types={['geocode']}
-          />
-          <CurrentLocation onChange={setCoordinates} />
+          >
+            <AutoComplete 
+              onPlaceSelected={e => setCoordinates({
+                latitude: e.geometry.location.lat(),
+                longitude: e.geometry.location.lng(),
+              })} 
+              types={['geocode']}
+            />
+            <CurrentLocation onChange={setCoordinates} />
+          </div>
         </Form.Item>
 
         <Form.Item
