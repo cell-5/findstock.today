@@ -3,7 +3,7 @@ import React from "react";
 import Highlight from "../utils/Highlight";
 import Loading from "../utils/Loading";
 import { useAuth0 } from "./react-auth0-spa";
-
+import { Row, Col } from "antd"
 const Profile = () => {
   const { loading, user } = useAuth0();
 

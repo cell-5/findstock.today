@@ -4,26 +4,27 @@ import SearchPage from './components/search/SearchPage';
 import StockPage from './components/stock/StockPage';
 import EditStock from './components/stock/EditStock';
 import ShopPage from './components/shop/ShopPage';
-import PrivateRoute from "./components/PrivateRoute";
-import Loading from "./components/Loading";
+import PrivateRoute from "./components/auth0/PrivateRoute";
+import Loading from "./components/utils/Loading";
 import Navbar from './components/navbar/Navbar';
-import Profile from "./views/Profile";
-import { useAuth0 } from "./react-auth0-spa";
+import Profile from "./components/auth0/Profile";
+import { useAuth0 } from "./components/auth0/react-auth0-spa";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
 import { Layout,Row, Col  } from 'antd';
-const { Content, Footer } = Layout;
-import initFontAwesome from "./utils/initFontAwesome";
+
+import initFontAwesome from "./components/utils/initFontAwesome";
 initFontAwesome();
+
+const { Content, Footer } = Layout;
 const App = () => {
-  const { loading } = useAuth0();
-  if (loading) {
+  const authZero = useAuth0();
+  if (authZero && authZero.loading) {
     return <Loading />;
   }
-  render() {
     return (
         <BrowserRouter>
         <Layout>
@@ -43,6 +44,7 @@ const App = () => {
                   <Route path="/">
                     <SearchPage />
                   </Route>
+                  <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
             </Col>
           </Row>
@@ -52,4 +54,5 @@ const App = () => {
         </BrowserRouter>
     );
   };
-}
+  
+  export default App;
