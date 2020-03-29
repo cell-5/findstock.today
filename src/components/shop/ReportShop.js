@@ -5,26 +5,22 @@ import React, { useState } from 'react';
 const { TextArea } = Input;
 
 
-const handleReportShop = (props) =>  {
-    console.log(window.location.search.shopId )
+const handleReportShop = (reason, { shopId, onSuccess }) => {
     fetch(`/.netlify/functions/reportShop `, {
-    method: 'POST',
-    body: JSON.stringify({ Shop: window.location.search.shopId })
-})
-    .then(res => console.log(res.json()))}
-// .then(({ data = [] }) => {
-// setShops(data);
-// setLoading(false);
-// })
-// .catch(err => setLoading(false));
+        method: 'POST',
+        body: JSON.stringify({ shop: shopId, reason })
+    })
+        .then(res => { res.status === 200 ? onSuccess() : null; 
+            console.log(res) }) // TODO on failure
+}
 
-const ReportForm = () => {
+const ReportForm = (props) => {
     const [form] = Form.useForm();
+    const { onSuccess, shopId } = props
     return (<>
         <Form
             name="reportShop"
-            onFinish={handleReportShop}
-            // onFinishFailed={onFinishFailed}
+            onFinish={(values) => handleReportShop(values.reportShopReason, { shopId, onSuccess })}
             form={form}
         >
             <Form.Item
@@ -44,18 +40,20 @@ const ReportForm = () => {
 }
 
 
-const ReportShop = () => {
+const ReportShop = (props) => {
     const [toggleReason, setToggleReason] = useState(false);
+
+    const handleToggleReason = () => setToggleReason(!toggleReason)
     return (
         <>
             <Button
                 style={{ background: "red" }}
-                onClick={() => setToggleReason(!toggleReason)}
+                onClick={handleToggleReason}
                 type="primary"
                 htmlType="submit">
                 Report Shop
             </Button>
-            {toggleReason && <ReportForm />}
+            {toggleReason && <ReportForm shopId={props.shopId} onSuccess={handleToggleReason} />}
         </>
     )
 }
