@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox, Typography, Layout,Tooltip } from 'antd'
 import AddressSearchInput from './AddressSearchInput'
 import SelectCategories from './SelectCategories'
 import WebsiteLink from './WebSiteInput';
-import OpeningHours from './OpeningHours';
+import OpeningSchedule from './OpeningSchedule';
 
 
 const layout = {
@@ -92,7 +92,7 @@ export default function ShopForm() {
       </Form.Item>
 
       <Form.Item name="openingHours" label="Please select days open">
-        <OpeningHours />
+        <OpeningSchedule />
       </Form.Item>
 
       <Form.Item>
