@@ -20,7 +20,6 @@ export default function ShopForm() {
 
   const onFinish = values => {
 
-    console.log('values', values)
     //   { 
     //     "name":"My Shop",
     //     "categories": [ "Grocery"], 
