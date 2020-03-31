@@ -83,7 +83,7 @@ export default function SearchPage() {
         label="Choose location"
         name="location"
       >
-        <div className="googleAutocomplete" style={{"display": "flex", "flex-direction": "row"}}>
+        <div className="googleAutocomplete" style={{"display": "flex", flexDirection: "row"}}>
       <AutoComplete 
         onPlaceSelected={e =>setCoordinates({latitude: e.geometry.location.lat(), longitude: e.geometry.location.lng()})} 
         types={['geocode']} />

@@ -16,13 +16,7 @@ const OpeningSchedule = ({ onChange }) => {
 
     useEffect(() => {
         onChange(hoursOpen);
-        console.log(hoursOpen);
     }, [hoursOpen]);
-
-    useEffect(() => {
-        days.forEach((day) => {setHoursOpen({...hoursOpen, [day]: {}})});           
-        console.log(hoursOpen);
-    }, []);
 
     return <>
         {days.map(day => (
