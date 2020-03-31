@@ -10,7 +10,7 @@ const { Item } = List;
 export default function EditStock() {
   const { shopId } = useParams();
   const [shop, setShop] = useState();
-  const [shopProducts, setShopProducts] = useState([]);
+  const [shopProducts, setShopProducts] = useState({});
   const [productOptions, setProductOptions] = useState([]);
   const [newProduct, setNewProduct] = useState();
   const [newProductStock, setNewProductStock] = useState();
@@ -53,7 +53,7 @@ export default function EditStock() {
   function handleAdd() {
     if (newProduct && newProductStock) {
       const products = {
-        ...shop.products,
+        ...shopProducts,
         [newProduct]: newProductStock,
       };
       updateStock(products);
@@ -62,7 +62,7 @@ export default function EditStock() {
 
   function handleStockChange(product) {
     const products = {
-      ...shop.products,
+      ...shopProducts,
       ...product,
     };
     updateStock(products);
