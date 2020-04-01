@@ -4,17 +4,15 @@ const { RangePicker } = TimePicker;
 
 const EachDay = ({ day = '', hoursOpen }) => {
 
-    const [time, setTime] = useState();
-    const [isOpen, setIsOpen] = useState(false);
     const [timeStart, setTimeStart] = useState('');
     const [timeEnd, setTimeEnd] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleIsOpenChange = (e) => {
         setIsOpen(e.target.checked);
     }
 
     const handleTimeChange = (newTime) => {
-        setTime(newTime); 
         setTimeStart(newTime[0].format('HH:mm'));
         setTimeEnd(newTime[1].format('HH:mm'));
     };
@@ -35,7 +33,7 @@ const EachDay = ({ day = '', hoursOpen }) => {
                 <Checkbox onChange={handleIsOpenChange} checked={isOpen} >{day} :</Checkbox>
             </div>
             <div style = {{width: '100%', display: 'flex', justifyContent: 'flex-start'}}>
-                <RangePicker format={'HH:mm'} onChange={handleTimeChange} value={time} />
+                <RangePicker format={'HH:mm'} onChange={handleTimeChange} />
             </div>
         </div>
     );
