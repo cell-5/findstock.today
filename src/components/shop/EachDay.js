@@ -6,24 +6,28 @@ const EachDay = ({ day = '', hoursOpen }) => {
 
     const [time, setTime] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const [toHoursOpen, setToHoursOpen] = useState({isOpen: isOpen, from: '', to: ''});
+    const [timeStart, setTimeStart] = useState('');
+    const [timeEnd, setTimeEnd] = useState('');
 
     const handleIsOpenChange = (e) => {
         setIsOpen(e.target.checked);
     }
 
-    const handleTimeChange = (newTime) => { 
-        setToHoursOpen({
-            isOpen: isOpen,
-            from: newTime[0].format('HH:mm'),
-            to: newTime[1].format('HH:mm'),
-        });
+    const handleTimeChange = (newTime) => {
         setTime(newTime); 
+        setTimeStart(newTime[0].format('HH:mm'));
+        setTimeEnd(newTime[1].format('HH:mm'));
     };
 
     useEffect(() => {
-        hoursOpen({[day]: toHoursOpen});
-    }, [isOpen, toHoursOpen]);
+        hoursOpen({
+            [day]: {
+                isOpen: isOpen,
+                from: timeStart,
+                to: timeEnd
+            }
+        });
+    }, [isOpen, timeStart, timeEnd]);    
 
     return (
         <div style = {{margin: '0.25rem', width: '100%', display: 'flex', justifyContent: 'space-around'}}>

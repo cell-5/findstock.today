@@ -10,18 +10,20 @@ import AutoComplete from '../google/AutoComplete';
 
 const AddressSearchInput = ({ onChange, setLongLat }) => {
 
-  const [coordinates, setCoordinates] = useState({long: 0, lat: 1});
-  const [address, setAddress] = useState('');
+  // const [coordinates, setCoordinates] = useState({long: 0, lat: 1});
+  // const [address, setAddress] = useState('');
 
   const onPlaceSelected = (data) => {
-    setCoordinates({long: data.geometry.location.lng(), lat: data.geometry.location.lat()});
-    setAddress(data.formatted_address);
+    // setCoordinates({long: data.geometry.location.lng(), lat: data.geometry.location.lat()});
+    setLongLat({long: data.geometry.location.lng(), lat: data.geometry.location.lat()});
+    // setAddress(data.formatted_address);
+    onChange(data.formatted_address);
   };
 
-  useEffect(() => {
-      onChange(address);
-      setLongLat(coordinates);
-  }, [coordinates, address]);
+  // useEffect(() => {
+  //     onChange(address);
+  //     setLongLat(coordinates);
+  // }, [coordinates, address]);
 
   return <>
       <AutoComplete 
