@@ -25,7 +25,11 @@ const schema = new mongoose.Schema({
   active: {type: [Boolean], default: true},
   openingHours: {
     type: Map,
-    of: [String],
+    of: {
+      isOpen: Boolean,
+      from: String,
+      to: String
+    },
   },
   slug: {
     type: String,

@@ -11,10 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.current-loc-ico {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  margin-left: -25px;
-}
