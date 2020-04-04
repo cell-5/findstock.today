@@ -12,7 +12,7 @@ const handleReportShop = (reason, { shopId, onSuccess, onFailure }) => {
         method: 'POST',
         body: JSON.stringify({ shop: shopId, reason })
     })
-        .then(res => res.status === 201 ? onSuccess() : onFailure())
+        .then(res => res.status === 200 ? onSuccess() : onFailure())
 }
 
 const ReportForm = (props) => {
