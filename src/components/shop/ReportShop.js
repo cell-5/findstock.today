@@ -1,16 +1,18 @@
 
-import { Button, Input, Form } from 'antd';
+import { Button, Input, Form, Typography } from 'antd';
 import React, { useState } from 'react';
+
+const { Text } = Typography;
 
 const { TextArea } = Input;
 
 
-const handleReportShop = (reason, { shopId, onSuccess }) => {
+const handleReportShop = (reason, { shopId, onSuccess, onFailure }) => {
     fetch(`/.netlify/functions/reportShop `, {
         method: 'POST',
         body: JSON.stringify({ shop: shopId, reason })
     })
-        .then(res =>  res.status === 200 ? onSuccess() : null) // TODO on failure
+        .then(res => res.status === 201 ? onSuccess() : onFailure())
 }
 
 const ReportForm = (props) => {
@@ -19,7 +21,7 @@ const ReportForm = (props) => {
     return (<>
         <Form
             name="reportShop"
-            onFinish={(values) => handleReportShop(values.reportShopReason, { shopId, onSuccess })}
+            onFinish={(values) => handleReportShop(values.reportShopReason, props)}
             form={form}
         >
             <Form.Item
@@ -41,8 +43,20 @@ const ReportForm = (props) => {
 
 const ReportShop = (props) => {
     const [toggleReason, setToggleReason] = useState(false);
-
+    const [requestStatus, setRequestStatus] = useState({
+        isSuccess: false,
+        isFailure: false,
+    })
     const handleToggleReason = () => setToggleReason(!toggleReason)
+    const onSuccess = () => {
+        handleToggleReason()
+        setRequestStatus({ isSuccess: true })
+    }
+
+    const onFailure = () => {
+        setRequestStatus({ isFailure: true })
+    }
+
     return (
         <>
             <Button
@@ -52,7 +66,13 @@ const ReportShop = (props) => {
                 htmlType="submit">
                 Report Shop
             </Button>
-            {toggleReason && <ReportForm shopId={props.shopId} onSuccess={handleToggleReason} />}
+            {toggleReason && <ReportForm
+                shopId={props.shopId}
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+            />}
+            {requestStatus.isFailure && <Text type="warning"> Reporting of shop failed. Please try again or contact support: {process.env.MAILGUN_RECIPIENT}</Text>}
+            {requestStatus.isSuccess && <Text > Thanks, we have received the shop report and we will investigate the issue. </Text>}
         </>
     )
 }
