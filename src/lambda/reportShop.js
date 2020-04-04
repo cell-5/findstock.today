@@ -5,7 +5,7 @@ exports.handler = async (event, context) => {
     const body = event.body
     try {
         const email = {
-            from: 'admin <me@samples.mailgun.org>',
+            from: `admin <me@${process.env.MAILGUN_RECIPIENT}}>`,
             to: process.env.MAILGUN_RECIPIENT,
             subject: 'Hello',
             text: `ShopID:  ${body.shopId}
