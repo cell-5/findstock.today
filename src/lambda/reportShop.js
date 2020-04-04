@@ -1,32 +1,23 @@
-var API_KEY = 'KEY'
-var DOMAIN = 'cell5.co.uk';
-var mailgun = require('mailgun-js')({ apiKey: API_KEY, domain: DOMAIN });
 
-
-const data = {
-    from: 'Excited User <me@samples.mailgun.org>',
-    to: 'harry@cell5.com',
-    subject: 'Hello',
-    text: 'Testing some Mailgun awesomeness!'
-};
-
-
+var mailgun = require('mailgun-js')({ apiKey:  process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN });
 
 exports.handler = async (event, context) => {
-    // context.callbackWaitsForEmptyEventLoop = false
-    // return { statusCode: 200}
-
-    console.log(event)
+    const body = event.body
     try {
+        const email = {
+            from: 'admin <me@samples.mailgun.org>',
+            to: process.env.MAILGUN_RECIPIENT,
+            subject: 'Hello',
+            text: `ShopID:  ${body.shopId}
+            Reason: ${body.reason}`};
 
-        // Parse the ID
-        await mailgun.messages().send(data, function (error, body) {
-            console.log("WHATS HERE", body);
-
-        });
+        await mailgun.messages().send(email);
+        return {
+            statusCode: 200
+        }
 
     } catch (err) {
-        console.log('stock.list', err) // output to netlify function log
+        console.log('Error emailing report of shop', err) 
         return {
             statusCode: 500,
             body: JSON.stringify({ msg: err.message })

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { Table, Spin, Typography } from 'antd';
+import { Table, Spin, Typography} from 'antd';
+import ReportShop from '../shop/ReportShop';
 
 export default function StockPage(props) {
   const { shopId } = useParams();
@@ -57,7 +58,7 @@ export default function StockPage(props) {
   }
 
   return (
-    <div>
+    <>
       <Typography.Title level={2}>{shop ? `${shop.name}: Inventory` : 'Not Found'}</Typography.Title>
       <a href={shop ? shop.links[0] : '/'}>Go to shop website</a>
       <div style={{display:'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
@@ -65,6 +66,7 @@ export default function StockPage(props) {
         <Table dataSource={openHours} columns={openHoursColumns} />
       </div>
       <Link to={`/stock/${shopId}/edit`}>Edit Inventory</Link>
-    </div>
+      <ReportShop shopId={shopId}/>
+    </>
   );
 }

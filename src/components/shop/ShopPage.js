@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Form, Input, Button, Checkbox, Typography, Layout,Tooltip } from 'antd';
-import AddressSearchInput from './AddressSearchInput';
-import SelectCategories from './SelectCategories';
+import { Form, Input, Button, Checkbox, Typography, Layout, Tooltip } from 'antd';
+import AddressSearchInput from './AddressSearchInput'
+import SelectCategories from './SelectCategories'
 import WebsiteLink from './WebSiteInput';
 import OpeningSchedule from './OpeningSchedule';
 
@@ -57,15 +57,16 @@ export default function ShopForm() {
   };
 
   return (
-    <Form
-      {...layout}
-      name="shop"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      form={form}
-    >
-      <Typography.Title level={2}>Create Shop</Typography.Title>
+    <>
+      <Form
+        {...layout}
+        name="shop"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        form={form}
+      >
+        <Typography.Title level={2}>Create Shop</Typography.Title>
         <Form.Item
           label="Shop Name"
           name="name"
@@ -94,11 +95,12 @@ export default function ShopForm() {
         <OpeningSchedule />
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
         </Button>
-      </Form.Item>
-    </Form>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
