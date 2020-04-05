@@ -66,7 +66,7 @@ export default function ShopForm() {
         onFinishFailed={onFinishFailed}
         form={form}
       >
-        <Typography.Title level={2}>Create Shop</Typography.Title>
+        <Typography.Title style={{ textAlign: 'center' }} level={2}>Create Shop</Typography.Title>
         <Form.Item
           label="Shop Name"
           name="name"
@@ -75,29 +75,29 @@ export default function ShopForm() {
           <Input />
 
         </Form.Item>
-      <Form.Item
-        label="Shop web link"
-        name="shopLink"
-        rules={[{ required: true, message: 'Please input your shop link' }]}
-      >
-        <WebsiteLink />
-      </Form.Item>
-      <Form.Item name="chosenCategories" label="Select Category" rules={[{ required: true, message: 'Please select your shop category' }]}>
-        <SelectCategories />
-      </Form.Item>
-      <Form.Item name="address" label="Please enter your shop's address"
-        rules={[{ required: true, message: 'Please input the address of your shop' }]}
-      >
-          <AddressSearchInput setLongLat={setLongLat}/>
-      </Form.Item>
+        <Form.Item
+          label="Shop web link"
+          name="shopLink"
+          rules={[{ required: true, message: 'Please input your shop link' }]}
+        >
+          <WebsiteLink />
+        </Form.Item>
+        <Form.Item name="chosenCategories" label="Select Category" rules={[{ required: true, message: 'Please select your shop category' }]}>
+          <SelectCategories />
+        </Form.Item>
+        <Form.Item name="address" label="Please enter your shop's address"
+          rules={[{ required: true, message: 'Please input the address of your shop' }]}
+        >
+          <AddressSearchInput setLongLat={setLongLat} />
+        </Form.Item>
 
-      <Form.Item name="openingHours" label="Please select days open">
-        <OpeningSchedule />
-      </Form.Item>
+        <Form.Item name="openingHours" label="Please select days open">
+          <OpeningSchedule />
+        </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
+        <Form.Item style={{ textAlign: 'right' }}>
+        <Button type="primary" htmlType="submit">
+          Submit
         </Button>
         </Form.Item>
       </Form>

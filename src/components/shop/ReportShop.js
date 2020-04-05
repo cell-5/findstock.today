@@ -17,7 +17,6 @@ const handleReportShop = (reason, { shopId, onSuccess, onFailure }) => {
 
 const ReportForm = (props) => {
     const [form] = Form.useForm();
-    const { onSuccess, shopId } = props
     return (<>
         <Form
             name="reportShop"

@@ -3,10 +3,10 @@ import EachDay from './EachDay';
 
 const OpeningSchedule = ({ onChange }) => {
 
-    const [days, setDays] = useState(['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+    const [days, setDays] = useState(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
     const [hoursOpen, setHoursOpen] = useState({});
 
-    const hours = (data) => {
+    const handleHoursOpen = (data) => {
         setHoursOpen({
             ...hoursOpen,
             ...data
@@ -14,13 +14,15 @@ const OpeningSchedule = ({ onChange }) => {
         // console.log(hoursOpen);
     };
 
+    
+
     useEffect(() => {
         onChange(hoursOpen);
     }, [hoursOpen]);
 
     return <>
         {days.map(day => (
-            <EachDay day={day} hoursOpen={hours} key={day}/>
+            <EachDay day={day} hoursOpen={handleHoursOpen} key={day} />
         ))}
     </>
 }

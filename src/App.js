@@ -14,7 +14,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { Layout,Row, Col  } from 'antd';
+import { Layout, Row, Col } from 'antd';
 
 import initFontAwesome from "./components/utils/initFontAwesome";
 initFontAwesome();
@@ -25,34 +25,34 @@ const App = () => {
   if (authZero && authZero.loading) {
     return <Loading />;
   }
-    return (
-        <BrowserRouter>
-        <Layout>
-          <Navbar/>
-          <Content>
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Navbar></Navbar>
+        <Content style={{ marginTop: 40 }}>
           <Row justify="center">
             <Col xs={22} sm={22} md={16} lg={12} >
-                <Switch>
-                  <Route path="/shop">
-                    <ShopPage />
-                  </Route>
-                  {/* TODO Change to slug */}
-                  <Route exact path="/stock/:shopId">
-                    <StockPage />
-                  </Route>
-                  <PrivateRoute exact path="/stock/:shopId/edit" component={EditStock} />
-                  <Route path="/">
-                    <SearchPage />
-                  </Route>
-                  <PrivateRoute path="/profile" component={Profile} />
-                </Switch>
+              <Switch>
+                <Route path="/shop">
+                  <ShopPage />
+                </Route>
+                {/* TODO Change to slug */}
+                <Route exact path="/stock/:shopId">
+                  <StockPage />
+                </Route>
+                <PrivateRoute exact path="/stock/:shopId/edit" component={EditStock} />
+                <Route path="/">
+                  <SearchPage />
+                </Route>
+                <PrivateRoute path="/profile" component={Profile} />
+              </Switch>
             </Col>
           </Row>
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>findstock.today ©2020 Created by Cell5 & friends</Footer>
-        </Layout>
-        </BrowserRouter>
-    );
-  };
-  
-  export default App;
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>findstock.today ©2020 Created by Cell5 & friends</Footer>
+      </Layout>
+    </BrowserRouter>
+  );
+};
+
+export default App;
